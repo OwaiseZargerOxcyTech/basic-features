@@ -1,0 +1,78 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+  //url      = "postgres://default:QWG6Btb4XKTc@ep-muddy-recipe-a4dnori7-pooler.us-east-1.aws.neon.tech:5432/verceldb?sslmode=require&pgbouncer=true&connect_timeout=15"
+}
+
+model User {
+  id               Int       @id @default(autoincrement())
+  username         String    @unique
+  email            String    @unique
+  password         String
+  resetotp         String?
+  verified         String?
+  verifyotp        String?
+  company_existing String?
+  companies        Company[]
+  events           Event[] // Adding this field to relate to events created by the user
+}
+
+model Company {
+  id    Int    @id @default(autoincrement())
+  name  String
+  users User[]
+}
+
+model Detail {
+  id          Int      @id @default(autoincrement())
+  name        String
+  email       String
+  serviceType String
+  projectName String
+  teamLeader  String
+  teamMember  String[]
+  cost        Int
+  size        String
+  priority    String
+  projectType String
+  details     String
+  date        DateTime
+}
+
+model Event {
+  id                Int       @id @default(autoincrement())
+  event_name        String
+  event_color       String
+  start             DateTime
+  end               DateTime
+  type              EventType
+  email_addresses   String[] // Non-nullable array of strings
+  meeting_link      String? // Optional URL, only for meetings
+  event_description String
+  created_by        Int // User ID
+  user              User      @relation(fields: [created_by], references: [id])
+}
+
+enum EventType {
+  event
+  meeting
+}
+
+// Explanation:
+// created_by: This field will store the id of the user who created the event.
+// user: This is a relation field that links the Event to a User. The @relation attribute indicates that the created_by field references the id field in the User model.
+// This addition creates a foreign key relationship between the Event and User models, ensuring that each event is associated with a user.
+
+// Explanation:
+// id: A unique identifier for each event, with auto-increment.
+// event_name: A string for the event's name.
+// event_color: A string for the event's color.
+// start and end: DateTime fields representing the start and end times of the event.
+// type: An enum field indicating the type of event. Can be either "event" or "meeting" in lowercase.
+// email_addresses: A non-nullable array of strings to hold multiple email addresses.
+// meeting_link: An optional string field to hold a URL for meetings, used only when type is "meeting".
+// event_description: A string for the event's description.

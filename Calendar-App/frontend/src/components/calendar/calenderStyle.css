@@ -1,0 +1,50 @@
+.calendar-container .rbc-off-range-bg {
+  background: #f7f7f7 !important;
+}
+
+
+.calendar-container .rbc-event {
+  border: none !important;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  margin: 0;
+  padding: 0;
+  background-color: transparent !important;
+  border-radius: 5px;
+  color: #fff;
+  cursor: pointer;
+  width: 100%;
+  text-align: left;
+  /* height: 100%; */
+}
+
+.calendar-container .rbc-event:focus {
+  outline: none;
+}
+
+.calendar-container .rbc-ellipsis,
+.calendar-container .rbc-show-more,
+.calendar-container .rbc-row-segment .rbc-event-content,
+.calendar-container .rbc-event-label {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 100%;
+}
+
+.calendar-container .rbc-day-slot .rbc-event-label {
+  display: none !important;
+}
+
+.rbc-agenda-table tbody tr {
+  background-color: #ffffff !important;
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  border-radius: 3px;
+  text-align: center;
+  border-left: none !important;
+}
